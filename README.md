@@ -79,8 +79,6 @@ Z[i, j] = dot( X[i, :], W[:, j] )
 ## License
 MIT (use freely).
 
-_Generated on 2025-12-29_
-
 ---
 
 ## Mini projects
