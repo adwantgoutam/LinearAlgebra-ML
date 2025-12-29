@@ -1,13 +1,21 @@
 from __future__ import annotations
 import numpy as np
 
-def assert_shape(x: np.ndarray, shape: tuple[int, ...], name: str = "array") -> None:
-    if x.shape != shape:
-        raise ValueError(f"{name} has shape {x.shape}, expected {shape}")
+def assert_1d(v: np.ndarray, name: str = "v") -> np.ndarray:
+    v = np.asarray(v, dtype=float)
+    if v.ndim != 1:
+        raise ValueError(f"{name} must be 1D vector, got shape {v.shape}")
+    return v
+
+def assert_2d(A: np.ndarray, name: str = "A") -> np.ndarray:
+    A = np.asarray(A, dtype=float)
+    if A.ndim != 2:
+        raise ValueError(f"{name} must be 2D matrix, got shape {A.shape}")
+    return A
 
 def normalize(v: np.ndarray, eps: float = 1e-12) -> np.ndarray:
-    v = np.asarray(v, dtype=float)
-    n = np.linalg.norm(v)
+    v = assert_1d(v)
+    n = float(np.linalg.norm(v))
     if n < eps:
         raise ValueError("Cannot normalize near-zero vector.")
     return v / n
